@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccounting
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccountingApp.Infrastructure", "src\External\CleanArchitectureAccountingApp.Infrastructure\CleanArchitectureAccountingApp.Infrastructure.csproj", "{FBA32168-ADEB-4C03-8561-9F99BEFEE2A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccountingApp.Persistance", "src\External\CleanArchitectureAccountingApp.Persistance\CleanArchitectureAccountingApp.Persistance.csproj", "{09D52678-7A08-42FC-AC3F-8DEE4AB607EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccountingApp.Persistence", "src\External\CleanArchitectureAccountingApp.Persistence\CleanArchitectureAccountingApp.Persistence.csproj", "{09D52678-7A08-42FC-AC3F-8DEE4AB607EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccountingApp.Presentation", "src\External\CleanArchitectureAccountingApp.Presentation\CleanArchitectureAccountingApp.Presentation.csproj", "{DAA582C0-B45E-4A52-A0DB-3B1580CCDB71}"
 EndProject

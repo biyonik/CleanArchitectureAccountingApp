@@ -1,3 +1,4 @@
+using CleanArchitectureAccountingApp.Persistence.Context;
 using CleanArchitectureAccountingApp.Presentation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(AssemblyReference).Assembly);
+builder.Services.AddDbContext<AppDbContext>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen((SwaggerGenOptions setup) =>
@@ -35,6 +38,7 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions setup) =>
     });
 });
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

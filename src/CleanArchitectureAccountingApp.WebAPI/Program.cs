@@ -1,3 +1,4 @@
+using CleanArchitectureAccountingApp.Application;
 using CleanArchitectureAccountingApp.Persistence.Context;
 using CleanArchitectureAccountingApp.Presentation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,6 +7,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplicationServices();
 // Add services to the container.
 
 builder.Services.AddControllers()

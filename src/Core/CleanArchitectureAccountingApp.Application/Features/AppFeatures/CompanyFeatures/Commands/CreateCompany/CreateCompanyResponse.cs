@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitectureAccountingApp.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
 
-public class CreateCompanyResponse
+public sealed class CreateCompanyResponse
 {
-    
+    public string Message { get; set; } = "Şirket kaydı başarıyla tamamlandı";
 }

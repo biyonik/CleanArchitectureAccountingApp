@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
@@ -24,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Core\CleanArchitectureAccountingApp.Application\CleanArchitectureAccountingApp.Application.csproj" />
         <ProjectReference Include="..\..\Core\CleanArchitectureAccountingApp.Domain\CleanArchitectureAccountingApp.Domain.csproj" />
     </ItemGroup>
 
@@ -31,6 +33,10 @@
         <Reference Include="Microsoft.Extensions.Configuration">
             <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.0-rc.2.22476.2\Microsoft.Extensions.Configuration.dll</HintPath>
         </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\CompanyServices" />
     </ItemGroup>
 
 </Project>

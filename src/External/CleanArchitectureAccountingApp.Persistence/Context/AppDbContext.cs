@@ -1,4 +1,5 @@
-﻿using CleanArchitectureAccountingApp.Domain.AppEntities;
+﻿using CleanArchitectureAccountingApp.Domain.Abstractions;
+using CleanArchitectureAccountingApp.Domain.AppEntities;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,4 +25,24 @@ public sealed class AppDbContext: IdentityDbContext<AppUser, AppRole, Guid>
 
     public DbSet<Company> Companies { get; set; }
     public DbSet<UserAndCompanyRelationship> UserAndCompanyRelationships { get; set; }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        var entries = ChangeTracker.Entries<Entity>();
+        foreach (var entry in entries)
+        {
+            if (entry.State == EntityState.Added)
+            {
+                entry.Property(p => p.Id).CurrentValue = Guid.NewGuid();
+                entry.Property(p => p.CreatedDate).CurrentValue = DateTime.Now;
+            }else if (entry.State == EntityState.Modified)
+            {
+                entry.Property(p => p.UpdatedDate).CurrentValue = DateTime.Now;
+            }else if (entry.State == EntityState.Deleted)
+            {
+                entry.Property(p => p.RemovedDate).CurrentValue = DateTime.Now;
+            }
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
 }

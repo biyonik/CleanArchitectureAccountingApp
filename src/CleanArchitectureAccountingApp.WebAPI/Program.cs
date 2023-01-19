@@ -1,18 +1,32 @@
-using CleanArchitectureAccountingApp.Application;
+using System.Reflection;
+using CleanArchitectureAccountingApp.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
+using CleanArchitectureAccountingApp.Application.Services.AppServices.CompanyService;
+using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
 using CleanArchitectureAccountingApp.Persistence.Context;
-using CleanArchitectureAccountingApp.Presentation;
+using CleanArchitectureAccountingApp.Persistence.Services.AppServices;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApplicationServices();
 // Add services to the container.
 
 builder.Services.AddControllers()
-    .AddApplicationPart(typeof(AssemblyReference).Assembly);
+    .AddApplicationPart(typeof(CleanArchitectureAccountingApp.Presentation.AssemblyReference).Assembly);
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddMediatR(typeof(CleanArchitectureAccountingApp.Application.AssemblyReference).Assembly);
+builder.Services.AddAutoMapper(typeof(CleanArchitectureAccountingApp.Persistence.AssemblyReference).Assembly);
+builder.Services.AddCors((CorsOptions options) =>
+{
+    options.AddPolicy("CorsPolicy",
+        (CorsPolicyBuilder policy) => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+});
+
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -52,6 +66,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();

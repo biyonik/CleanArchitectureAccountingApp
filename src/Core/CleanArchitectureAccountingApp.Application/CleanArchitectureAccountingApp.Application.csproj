@@ -21,4 +21,8 @@
       <Folder Include="Features\CompanyFeatures" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CleanArchitectureAccountingApp.Domain\CleanArchitectureAccountingApp.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

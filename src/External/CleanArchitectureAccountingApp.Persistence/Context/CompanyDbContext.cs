@@ -8,7 +8,7 @@ public sealed class CompanyDbContext : DbContext
 {
     private string ConnectionString = "";
 
-    public CompanyDbContext(Guid companyId, Company? company = null)
+    public CompanyDbContext(Company? company = null)
     {
         if (company != null)
         {
@@ -30,7 +30,7 @@ public sealed class CompanyDbContext : DbContext
     {
         public CompanyDbContext CreateDbContext(string[] args)
         {
-            return new CompanyDbContext(Guid.Empty);
+            return new CompanyDbContext();
         }
     }
 }

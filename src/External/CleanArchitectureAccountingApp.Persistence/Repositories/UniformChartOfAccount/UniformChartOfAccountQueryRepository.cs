@@ -1,0 +1,9 @@
+﻿using System.Linq.Expressions;
+using CleanArchitectureAccountingApp.Domain.Repositories.UniformChartOfAccountRepositories;
+using Microsoft.EntityFrameworkCore;
+
+namespace CleanArchitectureAccountingApp.Persistence.Repositories.UniformChartOfAccount;
+
+public sealed class UniformChartOfAccountQueryRepository: QueryRepository<Domain.CompanyEntities.UniformChartOfAccount>, IUniformChartOfAccountQueryRepository
+{
+}

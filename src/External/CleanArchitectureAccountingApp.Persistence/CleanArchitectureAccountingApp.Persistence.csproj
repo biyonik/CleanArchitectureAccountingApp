@@ -36,7 +36,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\CompanyServices" />
+      <Folder Include="Persistence" />
     </ItemGroup>
 
 </Project>

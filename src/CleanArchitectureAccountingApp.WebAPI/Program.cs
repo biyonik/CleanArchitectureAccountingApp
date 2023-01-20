@@ -1,9 +1,15 @@
 using System.Reflection;
 using CleanArchitectureAccountingApp.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
 using CleanArchitectureAccountingApp.Application.Services.AppServices.CompanyService;
+using CleanArchitectureAccountingApp.Application.Services.CompanyServices;
+using CleanArchitectureAccountingApp.Domain;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
+using CleanArchitectureAccountingApp.Domain.Repositories.UniformChartOfAccountRepositories;
+using CleanArchitectureAccountingApp.Persistence;
 using CleanArchitectureAccountingApp.Persistence.Context;
+using CleanArchitectureAccountingApp.Persistence.Repositories.UniformChartOfAccount;
 using CleanArchitectureAccountingApp.Persistence.Services.AppServices;
+using CleanArchitectureAccountingApp.Persistence.Services.CompanyServices;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -27,6 +33,12 @@ builder.Services.AddCors((CorsOptions options) =>
 });
 
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUniformChartOfAccountQueryRepository, UniformChartOfAccountQueryRepository>();
+builder.Services.AddScoped<IUniformChartOfAccountCommandRepository, UniformChartOfAccountCommandRepository>();
+builder.Services.AddScoped<IUniformChartOfAccountService, UniformChartOfAccountService>();
+builder.Services.AddScoped<IContextService, ContextService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

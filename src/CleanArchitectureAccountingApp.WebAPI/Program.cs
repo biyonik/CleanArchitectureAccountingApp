@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
 using CleanArchitectureAccountingApp.WebAPI.Configurations;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,7 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+    var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
     if (!userManager.Users.Any())
     {
         userManager.CreateAsync(new AppUser()
@@ -36,8 +37,10 @@ using (var scope = app.Services.CreateScope())
             UserName = "ahmetaltun",
             Id = Guid.NewGuid(),
             FirstName = "Ahmet",
-            LastName = "Altun"
-        }, "123456/*").Wait();
+            LastName = "Altun",
+            RefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
+            RefreshTokenExpires = DateTime.Now.AddDays(2)
+        }, "Az123456/*").Wait();
     }
 }
 

@@ -27,13 +27,14 @@ public sealed class LoginHandler: IRequestHandler<LoginRequest, LoginResponse>
         var checkUser = await _userManager.CheckPasswordAsync(user, request.Password);
         if (!checkUser) throw new Exception("Parola yanlış!");
 
+        List<string?> roles = new List<string?>();
         LoginResponse response = new()
         {
             Email = user.Email,
             UserId = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Token = await _jwtProvider.CreateTokenAsync(user, null)
+            Token = await _jwtProvider.CreateTokenAsync(user, roles)
         };
         return response;
     }

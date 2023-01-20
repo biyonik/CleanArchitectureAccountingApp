@@ -21,7 +21,7 @@ public sealed class JwtProvider : IJwtProvider
         _jwtOptions = jwtOptions.Value;
     }
 
-    public async Task<string> CreateTokenAsync(AppUser user, List<string> roles)
+    public async Task<string> CreateTokenAsync(AppUser user, List<string>? roles)
     {
         var claims = new Claim[]
         {

@@ -1,71 +1,12 @@
-using System.Reflection;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
-using CleanArchitectureAccountingApp.Application.Services.AppServices.CompanyService;
-using CleanArchitectureAccountingApp.Application.Services.CompanyServices;
-using CleanArchitectureAccountingApp.Domain;
-using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
-using CleanArchitectureAccountingApp.Domain.Repositories.UniformChartOfAccountRepositories;
-using CleanArchitectureAccountingApp.Persistence;
-using CleanArchitectureAccountingApp.Persistence.Context;
-using CleanArchitectureAccountingApp.Persistence.Repositories.UniformChartOfAccount;
-using CleanArchitectureAccountingApp.Persistence.Services.AppServices;
-using CleanArchitectureAccountingApp.Persistence.Services.CompanyServices;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using CleanArchitectureAccountingApp.WebAPI.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers()
-    .AddApplicationPart(typeof(CleanArchitectureAccountingApp.Presentation.AssemblyReference).Assembly);
-builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
-builder.Services.AddMediatR(typeof(CleanArchitectureAccountingApp.Application.AssemblyReference).Assembly);
-builder.Services.AddAutoMapper(typeof(CleanArchitectureAccountingApp.Persistence.AssemblyReference).Assembly);
-builder.Services.AddCors((CorsOptions options) =>
-{
-    options.AddPolicy("CorsPolicy",
-        (CorsPolicyBuilder policy) => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
-});
-
-builder.Services.AddScoped<ICompanyService, CompanyService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IUniformChartOfAccountQueryRepository, UniformChartOfAccountQueryRepository>();
-builder.Services.AddScoped<IUniformChartOfAccountCommandRepository, UniformChartOfAccountCommandRepository>();
-builder.Services.AddScoped<IUniformChartOfAccountService, UniformChartOfAccountService>();
-builder.Services.AddScoped<IContextService, ContextService>();
-
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen((SwaggerGenOptions setup) =>
-{
-    var jwtSecurityScheme = new OpenApiSecurityScheme
-    {
-        BearerFormat = "JWT",
-        Name = "JWT Authentication",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = JwtBearerDefaults.AuthenticationScheme,
-        Description = "JWT Bearer Token",
-        Reference = new OpenApiReference
-        {
-            Id = JwtBearerDefaults.AuthenticationScheme,
-            Type = ReferenceType.SecurityScheme
-        }
-    };
-    
-    setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {jwtSecurityScheme, Array.Empty<string>()}
-    });
-});
-
+new PersistenceServiceInstaller().Install(builder.Services, builder.Configuration);
+new PersistenceDIServiceInstaller().Install(builder.Services, builder.Configuration);
+new ThirdPartyServiceInstaller().Install(builder.Services, builder.Configuration);
+new GeneralServiceInstaller().Install(builder.Services, builder.Configuration);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var app = builder.Build();
 

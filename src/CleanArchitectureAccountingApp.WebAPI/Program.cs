@@ -3,10 +3,7 @@ using CleanArchitectureAccountingApp.WebAPI.Configurations;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-new PersistenceServiceInstaller().Install(builder.Services, builder.Configuration);
-new PersistenceDIServiceInstaller().Install(builder.Services, builder.Configuration);
-new ThirdPartyServiceInstaller().Install(builder.Services, builder.Configuration);
-new GeneralServiceInstaller().Install(builder.Services, builder.Configuration);
+builder.Services.InstallServices(builder.Configuration, typeof(IServiceInstaller).Assembly);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var app = builder.Build();
 
@@ -20,6 +17,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

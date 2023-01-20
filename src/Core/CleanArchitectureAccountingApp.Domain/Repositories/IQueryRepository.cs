@@ -5,9 +5,9 @@ namespace CleanArchitectureAccountingApp.Domain.Repositories;
 
 public interface IQueryRepository<TEntity> : IRepository<TEntity> where TEntity: Entity
 {
-    Task<IQueryable<TEntity?>> GetAllAsync();
-    Task<IQueryable<TEntity?>> GetAllByWhereExpression(Expression<Func<TEntity?, bool>> expression);
-    Task<TEntity?> GetByIdAsync(Guid Id);
-    Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> expression);
-    Task<TEntity?> GetFirstAsync();
+    Task<IQueryable<TEntity?>> GetAllAsync(bool isTracking = true);
+    Task<IQueryable<TEntity?>> GetAllByWhereExpression(Expression<Func<TEntity?, bool>> expression, bool isTracking = true);
+    Task<TEntity?> GetByIdAsync(Guid Id, bool isTracking = true);
+    Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> expression, bool isTracking = true);
+    Task<TEntity?> GetFirstAsync(bool isTracking = true);
 }

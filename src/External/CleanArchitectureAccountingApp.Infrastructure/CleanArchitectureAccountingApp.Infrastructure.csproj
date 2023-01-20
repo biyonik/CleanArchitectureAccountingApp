@@ -6,4 +6,13 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Core\CleanArchitectureAccountingApp.Application\CleanArchitectureAccountingApp.Application.csproj" />
+      <ProjectReference Include="..\..\Core\CleanArchitectureAccountingApp.Domain\CleanArchitectureAccountingApp.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
+    </ItemGroup>
+
 </Project>

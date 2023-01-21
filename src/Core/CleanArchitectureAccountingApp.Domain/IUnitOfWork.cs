@@ -5,5 +5,5 @@ namespace CleanArchitectureAccountingApp.Domain;
 public interface IUnitOfWork
 {
     void SetDbContextInstance(DbContext ctx);
-    Task<int> SaveChangesAsync();
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

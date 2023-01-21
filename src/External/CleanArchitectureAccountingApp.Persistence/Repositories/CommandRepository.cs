@@ -20,40 +20,40 @@ public class CommandRepository<TEntity> : ICommandRepository<TEntity> where TEnt
         Entity = _ctx.Set<TEntity>();
     }
 
-    public async Task AddAsync(TEntity? entity)
+    public async Task AddAsync(TEntity? entity, CancellationToken cancellationToken)
     {
-        await Entity.AddAsync(entity);
+        await Entity.AddAsync(entity, cancellationToken);
     }
 
-    public async Task AddRangeAsync(IEnumerable<TEntity?> entities)
+    public async Task AddRangeAsync(IEnumerable<TEntity?> entities, CancellationToken cancellationToken)
     {
-        await Entity.AddRangeAsync(entities);
+        await Entity.AddRangeAsync(entities, cancellationToken);
     }
 
-    public async Task UpdateAsync(TEntity? entity)
+    public async Task UpdateAsync(TEntity? entity, CancellationToken cancellationToken)
     {
-        await Task.Run(() => Entity.Update(entity));
+        await Task.Run(() => Entity.Update(entity), cancellationToken);
     }
 
-    public async Task UpdateRangeAsync(IEnumerable<TEntity?> entities)
+    public async Task UpdateRangeAsync(IEnumerable<TEntity?> entities, CancellationToken cancellationToken)
     {
-        await Task.Run(() => Entity.UpdateRange(entities));
+        await Task.Run(() => Entity.UpdateRange(entities), cancellationToken);
     }
 
-    public async Task RemoveByIdAsync(Guid Id)
+    public async Task RemoveByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
         var entityFormRemove = await GetByIdCompiledQuery(_ctx, Id);
         if (entityFormRemove == null) return;
-        await Task.Run(() => Entity.Remove(entityFormRemove));
+        await Task.Run(() => Entity.Remove(entityFormRemove), cancellationToken);
     }
 
-    public async Task Remove(TEntity? entity)
+    public async Task Remove(TEntity? entity, CancellationToken cancellationToken)
     {
-        await Task.Run(() => Entity.Remove(entity));
+        await Task.Run(() => Entity.Remove(entity), cancellationToken);
     }
 
-    public async Task RemoveRangeAsync(IEnumerable<TEntity?> entities)
+    public async Task RemoveRangeAsync(IEnumerable<TEntity?> entities, CancellationToken cancellationToken)
     {
-        await Task.Run(() => Entity.RemoveRange(entities));
+        await Task.Run(() => Entity.RemoveRange(entities), cancellationToken);
     }
 }

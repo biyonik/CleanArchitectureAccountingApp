@@ -24,13 +24,13 @@ public sealed class UniformChartOfAccountService: IUniformChartOfAccountService
         _mapper = mapper;
     }
 
-    public async Task<bool> CreateUniformChartOfAccountAsync(UniformChartOfAccountForAddDto request)
+    public async Task<bool> CreateUniformChartOfAccountAsync(UniformChartOfAccountForAddDto request, CancellationToken cancellationToken)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
         _uniformChartOfAccountCommandRepository.SetDbContextInstance(_context);
         _unitOfWork.SetDbContextInstance(_context);
         var mappedEntity = _mapper.Map<UniformChartOfAccount>(request);
-        await _uniformChartOfAccountCommandRepository.AddAsync(mappedEntity);
-        return await _unitOfWork.SaveChangesAsync() > 0;
+        await _uniformChartOfAccountCommandRepository.AddAsync(mappedEntity, cancellationToken);
+        return await _unitOfWork.SaveChangesAsync(cancellationToken) > 0;
     }
 }

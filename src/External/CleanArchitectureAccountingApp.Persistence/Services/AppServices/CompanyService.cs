@@ -22,11 +22,11 @@ public sealed class CompanyService: ICompanyService
         _mapper = mapper;
     }
 
-    public async Task<bool> Create(CreateCompany.Command request)
+    public async Task<bool> Create(CreateCompany.Command request, CancellationToken cancellationToken)
     {
         var company = _mapper.Map<Company>(request);
-        await _context.Set<Company>().AddAsync(company);
-        var result = await _context.SaveChangesAsync() > 0;
+        await _context.Set<Company>().AddAsync(company, cancellationToken);
+        var result = await _context.SaveChangesAsync(cancellationToken) > 0;
         return result;
     }
 
@@ -35,14 +35,14 @@ public sealed class CompanyService: ICompanyService
         return await GetCompanyByNameCompiled(_context, name);
     }
 
-    public async Task<bool> MigrateCompanyDatabases()
+    public async Task<bool> MigrateCompanyDatabases(CancellationToken cancellationToken)
     {
-        var companies = await _context.Set<Company>().ToListAsync();
+        var companies = await _context.Set<Company>().ToListAsync(cancellationToken: cancellationToken);
         if (companies.Count == 0) return false;
         foreach (var company in companies)
         {
             var db = new CompanyDbContext(company);
-            await db.Database.MigrateAsync();
+            await db.Database.MigrateAsync(cancellationToken: cancellationToken);
         }
 
         return true;

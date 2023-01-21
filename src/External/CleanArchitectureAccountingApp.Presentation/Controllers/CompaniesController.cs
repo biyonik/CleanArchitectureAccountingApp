@@ -9,7 +9,7 @@ namespace CleanArchitectureAccountingApp.Presentation.Controllers;
 public class CompaniesController: BaseApiController
 {
     [HttpPost]
-    public async Task<IActionResult> Add(CompanyForAddDto company)
+    public async Task<IActionResult> Add(CompanyForAddDto company, CancellationToken cancellationToken)
     {
         var request = new CreateCompany.Command(
             company.Name,
@@ -19,14 +19,14 @@ public class CompaniesController: BaseApiController
             company.UserId,
             company.Password
         );
-        var response = await Mediator?.Send(request)!;
+        var response = await Mediator?.Send(request, cancellationToken)!;
         return Ok(response);
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> MigrateCompanyDatabases()
+    public async Task<IActionResult> MigrateCompanyDatabases(CancellationToken cancellationToken)
     {
-        var response = await Mediator?.Send(new MigrateCompanyDatabase.Command());
+        var response = await Mediator?.Send(new MigrateCompanyDatabase.Command(), cancellationToken);
         return Ok(response);
     }
 }

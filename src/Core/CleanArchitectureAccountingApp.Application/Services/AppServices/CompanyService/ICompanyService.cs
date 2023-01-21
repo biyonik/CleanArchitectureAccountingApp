@@ -5,7 +5,7 @@ namespace CleanArchitectureAccountingApp.Application.Services.AppServices.Compan
 
 public interface ICompanyService
 {
-    Task<bool> Create(CreateCompany.Command request);
+    Task<bool> Create(CreateCompany.Command request, CancellationToken cancellationToken);
     Task<Company?> GetCompanyByName(string name);
-    Task<bool> MigrateCompanyDatabases();
+    Task<bool> MigrateCompanyDatabases(CancellationToken cancellationToken);
 }

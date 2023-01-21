@@ -13,9 +13,9 @@ public sealed class CompanyDbContext : DbContext
     {
         if (company != null)
         {
-            ConnectionString = string.IsNullOrWhiteSpace(company?.UserId) 
+            ConnectionString = string.IsNullOrWhiteSpace(company?.ServerUserId) 
                 ? $@"Server={company?.ServerName};Port={company?.PortNumber};Database={company?.DatabaseName};User Id=postgres;Password=12345;" 
-                : $@"Server={company.ServerName};Port={company.PortNumber};Database={company.DatabaseName};User Id={company.UserId};Password={company.Password};";
+                : $@"Server={company.ServerName};Port={company.PortNumber};Database={company.DatabaseName};User Id={company.ServerUserId};Password={company.ServerPassword};";
         }
     }
 

@@ -2,6 +2,7 @@
 using CleanArchitectureAccountingApp.Application.DTOs.CompaniesSubDTOs.UniformChartOfAccount;
 using CleanArchitectureAccountingApp.Application.Messaging;
 using CleanArchitectureAccountingApp.Application.Services.CompanyServices;
+using FluentValidation;
 
 namespace CleanArchitectureAccountingApp.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Command;
 
@@ -12,6 +13,23 @@ public class CreateUniformChartOfAccount
         string Name,
         char Type
     ) : ICommand<Response>;
+
+    public sealed class CreateUniformChartOfAccountValidator : AbstractValidator<Command>
+    {
+        public CreateUniformChartOfAccountValidator()
+        {
+            RuleFor(x => x.Code)
+                .NotEmpty().WithMessage("Hesap planı kodu boş bırakılamaz!")
+                .NotNull().WithMessage("Hesap planı kodu boş bırakılamaz!");
+
+            RuleFor(x => x.Name)
+                .NotEmpty().WithMessage("Hesap planı adı boş bırakılamaz!")
+                .NotNull().WithMessage("Hesap planı adı boş bırakılamaz!");
+            RuleFor(x => x.Type)
+                .NotEmpty().WithMessage("Hesap planı tipi boş bırakılamaz!")
+                .NotNull().WithMessage("Hesap planı tipi boş bırakılamaz!");
+        }
+    }
 
     public sealed record Response(
         string Message = "Hesap planı kaydı başarıyla tamamlandı!"
@@ -31,7 +49,7 @@ public class CreateUniformChartOfAccount
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
             var mappedEntity = _mapper.Map<UniformChartOfAccountForAddDto>(request);
-            await _uniformChartOfAccountService.CreateUniformChartOfAccountAsync(mappedEntity);
+            await _uniformChartOfAccountService.CreateUniformChartOfAccountAsync(mappedEntity, cancellationToken);
             return new();
         }
     }

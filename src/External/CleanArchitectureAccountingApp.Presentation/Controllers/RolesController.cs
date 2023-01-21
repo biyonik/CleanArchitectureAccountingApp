@@ -9,30 +9,30 @@ namespace CleanArchitectureAccountingApp.Presentation.Controllers;
 public class RolesController : BaseApiController
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(new GetAllRoles.Query());
+        var response = await Mediator.Send(new GetAllRoles.Query(), cancellationToken);
         return Ok(response);
     }
     
     [HttpPost]
-    public async Task<IActionResult> Add(RoleForAddDto request)
+    public async Task<IActionResult> Add(RoleForAddDto request, CancellationToken cancellationToken)
     {
-        var result = await Mediator.Send(new CreateRole.Command(request.Code, request.Name));
+        var result = await Mediator.Send(new CreateRole.Command(request.Code, request.Name), cancellationToken);
         return Ok(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(RoleForUpdateDto request)
+    public async Task<IActionResult> Update(RoleForUpdateDto request, CancellationToken cancellationToken)
     {
-        var result = await Mediator.Send(new UpdateRole.Command(request.Id, request.Code, request.Name));
+        var result = await Mediator.Send(new UpdateRole.Command(request.Id, request.Code, request.Name), cancellationToken);
         return Ok(result);
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(RoleForDeleteDto request)
+    public async Task<IActionResult> Delete(RoleForDeleteDto request, CancellationToken cancellationToken)
     {
-        var result = await Mediator.Send(new DeleteRole.Command { Id = request.Id });
+        var result = await Mediator.Send(new DeleteRole.Command { Id = request.Id }, cancellationToken);
         return Ok(result);
     }
 }

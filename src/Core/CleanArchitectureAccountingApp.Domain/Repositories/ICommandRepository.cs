@@ -4,11 +4,11 @@ namespace CleanArchitectureAccountingApp.Domain.Repositories;
 
 public interface ICommandRepository<TEntity> : IRepository<TEntity> where TEntity: Entity
 {
-    Task AddAsync(TEntity? entity);
-    Task AddRangeAsync(IEnumerable<TEntity?> entities);
-    Task UpdateAsync(TEntity? entity);
-    Task UpdateRangeAsync(IEnumerable<TEntity?> entities);
-    Task RemoveByIdAsync(Guid Id);
-    Task Remove(TEntity? entity);
-    Task RemoveRangeAsync(IEnumerable<TEntity?> entities);
+    Task AddAsync(TEntity? entity, CancellationToken cancellationToken);
+    Task AddRangeAsync(IEnumerable<TEntity?> entities, CancellationToken cancellationToken);
+    Task UpdateAsync(TEntity? entity, CancellationToken cancellationToken);
+    Task UpdateRangeAsync(IEnumerable<TEntity?> entities, CancellationToken cancellationToken);
+    Task RemoveByIdAsync(Guid Id, CancellationToken cancellationToken);
+    Task Remove(TEntity? entity, CancellationToken cancellationToken);
+    Task RemoveRangeAsync(IEnumerable<TEntity?> entities, CancellationToken cancellationToken);
 }

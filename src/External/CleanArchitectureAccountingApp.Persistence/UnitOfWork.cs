@@ -12,8 +12,8 @@ public sealed class UnitOfWork: IUnitOfWork
         _ctx = (CompanyDbContext)ctx;
     }
 
-    public async Task<int> SaveChangesAsync()
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
     {
-        return await _ctx.SaveChangesAsync();
+        return await _ctx.SaveChangesAsync(cancellationToken);
     }
 }

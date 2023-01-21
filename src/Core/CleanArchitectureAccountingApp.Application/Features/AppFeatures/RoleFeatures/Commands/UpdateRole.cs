@@ -1,6 +1,7 @@
 ﻿using CleanArchitectureAccountingApp.Application.Messaging;
 using CleanArchitectureAccountingApp.Application.Services.AppServices.RoleService;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
+using FluentValidation;
 
 namespace CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands;
 
@@ -11,6 +12,23 @@ public class UpdateRole
         string Code,
         string Name
     ) : ICommand<Response>;
+
+    public sealed class UpdateRoleValidator : AbstractValidator<Command>
+    {
+        public UpdateRoleValidator()
+        {
+            RuleFor(x => x.Id)
+                .NotEmpty().WithMessage("Rol Id değeri boş bırakılamaz!")
+                .NotNull().WithMessage("Rol Id değeri boş bırakılamaz!");
+            RuleFor(x => x.Code)
+                .NotEmpty().WithMessage("Rol kodu boş bırakılamaz!")
+                .NotNull().WithMessage("Rol kodu boş bırakılamaz!");
+            
+            RuleFor(x => x.Name)
+                .NotEmpty().WithMessage("Rol adı boş bırakılamaz!")
+                .NotNull().WithMessage("Rol adı boş bırakılamaz!");
+        }
+    }
 
     public sealed record Response(
         string Message = "Rol güncelleme işlemi başarılı."

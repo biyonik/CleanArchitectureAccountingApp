@@ -22,7 +22,7 @@ public class MigrateCompanyDatabase
 
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
-            await _companyService.MigrateCompanyDatabases();
+            await _companyService.MigrateCompanyDatabases(cancellationToken);
             return new();
         }
     }

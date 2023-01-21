@@ -8,11 +8,11 @@ namespace CleanArchitectureAccountingApp.Presentation.Controllers;
 public sealed class UniformChartOfAccountsController: BaseApiController
 {
     [HttpPost]
-    public async Task<IActionResult> Add(UniformChartOfAccountForAddDto request)
+    public async Task<IActionResult> Add(UniformChartOfAccountForAddDto request, CancellationToken cancellationToken)
     {
         var response = await Mediator.Send(new CreateUniformChartOfAccount.Command(request.Code,
             request.Name,
-            request.Type));
+            request.Type), cancellationToken);
         return Ok(response);
     }
 }

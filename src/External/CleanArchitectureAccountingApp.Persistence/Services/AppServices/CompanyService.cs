@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
+using CleanArchitectureAccountingApp.Application.Features.AppFeatures.CompanyFeatures.Commands;
 using CleanArchitectureAccountingApp.Application.Services.AppServices.CompanyService;
 using CleanArchitectureAccountingApp.Domain.AppEntities;
 using CleanArchitectureAccountingApp.Persistence.Context;
@@ -22,7 +22,7 @@ public sealed class CompanyService: ICompanyService
         _mapper = mapper;
     }
 
-    public async Task<bool> Create(CreateCompanyRequest request)
+    public async Task<bool> Create(CreateCompany.Command request)
     {
         var company = _mapper.Map<Company>(request);
         await _context.Set<Company>().AddAsync(company);

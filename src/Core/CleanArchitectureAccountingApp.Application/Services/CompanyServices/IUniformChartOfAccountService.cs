@@ -1,8 +1,8 @@
-﻿using CleanArchitectureAccountingApp.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Command.CreateUniformChartOfAccount;
+﻿using CleanArchitectureAccountingApp.Application.DTOs.CompaniesSubDTOs.UniformChartOfAccount;
 
 namespace CleanArchitectureAccountingApp.Application.Services.CompanyServices;
 
 public interface IUniformChartOfAccountService
 {
-    Task<bool> CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountRequest request);
+    Task<bool> CreateUniformChartOfAccountAsync(UniformChartOfAccountForAddDto request);
 }

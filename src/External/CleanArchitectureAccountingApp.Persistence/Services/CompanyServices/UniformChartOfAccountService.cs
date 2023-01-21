@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitectureAccountingApp.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Command.CreateUniformChartOfAccount;
+using CleanArchitectureAccountingApp.Application.DTOs.CompaniesSubDTOs.UniformChartOfAccount;
 using CleanArchitectureAccountingApp.Application.Services.CompanyServices;
 using CleanArchitectureAccountingApp.Domain;
 using CleanArchitectureAccountingApp.Domain.CompanyEntities;
@@ -24,7 +24,7 @@ public sealed class UniformChartOfAccountService: IUniformChartOfAccountService
         _mapper = mapper;
     }
 
-    public async Task<bool> CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountRequest request)
+    public async Task<bool> CreateUniformChartOfAccountAsync(UniformChartOfAccountForAddDto request)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
         _uniformChartOfAccountCommandRepository.SetDbContextInstance(_context);

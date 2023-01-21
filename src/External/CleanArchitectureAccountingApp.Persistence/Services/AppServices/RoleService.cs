@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands.CreateRole;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands.UpdateRole;
+using CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands;
 using CleanArchitectureAccountingApp.Application.Services.AppServices.RoleService;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -19,19 +17,19 @@ public sealed class RoleService: IRoleService
         _mapper = mapper;
     }
 
-    public async Task AddAsync(CreateRoleRequest request)
+    public async Task AddAsync(CreateRole.Command request)
     {
         AppRole? role = _mapper.Map<AppRole>(request);
         await _roleManager.CreateAsync(role);
     }
-
-    public async Task UpdateAsync(UpdateRoleRequest request)
+    
+    public async Task UpdateAsync(UpdateRole.Command request)
     {
         AppRole? role = _mapper.Map<AppRole>(request);
         await _roleManager.UpdateAsync(role);
     }
 
-    public async Task DeleteAsync(DeleteRole.DeleteRoleRequest request)
+    public async Task DeleteAsync(DeleteRole.Command request)
     {
         AppRole? role = _mapper.Map<AppRole>(request);
         await _roleManager.DeleteAsync(role);

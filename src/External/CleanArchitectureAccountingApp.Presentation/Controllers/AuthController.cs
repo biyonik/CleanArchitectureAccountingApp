@@ -7,7 +7,7 @@ namespace CleanArchitectureAccountingApp.Presentation.Controllers;
 public class AuthController: BaseApiController
 {
     [HttpPost("[action]")]
-    public async Task<IActionResult> Login(LoginRequest request)
+    public async Task<IActionResult> Login(Login.Command request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);

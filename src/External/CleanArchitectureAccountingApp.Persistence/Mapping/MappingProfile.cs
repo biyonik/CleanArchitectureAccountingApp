@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands.CreateRole;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole;
-using CleanArchitectureAccountingApp.Application.Features.AppFeatures.RoleFeatures.Commands.UpdateRole;
-using CleanArchitectureAccountingApp.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Command.CreateUniformChartOfAccount;
+using CleanArchitectureAccountingApp.Application.DTOs.CompaniesSubDTOs.UniformChartOfAccount;
+using CleanArchitectureAccountingApp.Application.DTOs.Company;
+using CleanArchitectureAccountingApp.Application.DTOs.Role;
+using CleanArchitectureAccountingApp.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Command;
 using CleanArchitectureAccountingApp.Domain.AppEntities;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
 using CleanArchitectureAccountingApp.Domain.CompanyEntities;
@@ -14,10 +13,11 @@ public class MappingProfile: Profile
 {
     public MappingProfile()
     {
-        CreateMap<CreateCompanyRequest, Company>().ReverseMap();
-        CreateMap<CreateUniformChartOfAccountRequest, UniformChartOfAccount>().ReverseMap();
-        CreateMap<CreateRoleRequest, AppRole>().ReverseMap();
-        CreateMap<UpdateRoleRequest, AppRole>().ReverseMap();
-        CreateMap<DeleteRole.DeleteRoleRequest, AppRole>().ReverseMap();
+        CreateMap<CompanyForAddDto, Company>().ReverseMap();
+        CreateMap<UniformChartOfAccountForAddDto, UniformChartOfAccount>().ReverseMap();
+        CreateMap<UniformChartOfAccountForAddDto, CreateUniformChartOfAccount.Command>().ReverseMap();
+        CreateMap<RoleForAddDto, AppRole>().ReverseMap();
+        CreateMap<RoleForUpdateDto, AppRole>().ReverseMap();
+        CreateMap<RoleForDeleteDto, AppRole>().ReverseMap();
     }
 }

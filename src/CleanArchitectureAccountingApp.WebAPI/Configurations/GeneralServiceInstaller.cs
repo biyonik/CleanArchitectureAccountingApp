@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using CleanArchitectureAccountingApp.WebAPI.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -9,6 +10,7 @@ public class GeneralServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
     {
+        serviceCollection.AddScoped<ExceptionMiddleware>();
         serviceCollection.AddCors((CorsOptions options) =>
         {
             options.AddPolicy("CorsPolicy",

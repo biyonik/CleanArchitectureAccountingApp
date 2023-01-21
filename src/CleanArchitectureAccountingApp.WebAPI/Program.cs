@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
 using CleanArchitectureAccountingApp.WebAPI.Configurations;
+using CleanArchitectureAccountingApp.WebAPI.Middlewares;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionMiddleware();
 
 app.UseHttpsRedirection();
 

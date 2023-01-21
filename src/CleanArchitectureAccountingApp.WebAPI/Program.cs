@@ -26,22 +26,22 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
-    if (!userManager.Users.Any())
-    {
-        userManager.CreateAsync(new AppUser()
-        {
-            Email = "ahmetaltun60@gmail.com",
-            UserName = "ahmetaltun",
-            Id = Guid.NewGuid(),
-            FirstName = "Ahmet",
-            LastName = "Altun",
-            RefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
-            RefreshTokenExpires = DateTime.Now.AddDays(2)
-        }, "Az123456/*").Wait();
-    }
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+//     if (!userManager.Users.Any())
+//     {
+//         userManager.CreateAsync(new AppUser()
+//         {
+//             Email = "ahmetaltun60@gmail.com",
+//             UserName = "ahmetaltun",
+//             Id = Guid.NewGuid(),
+//             FirstName = "Ahmet",
+//             LastName = "Altun",
+//             RefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
+//             RefreshTokenExpires = DateTime.Now.AddDays(2)
+//         }, "Az123456/*").Wait();
+//     }
+// }
 
 app.Run();

@@ -1,4 +1,5 @@
 ﻿using CleanArchitectureAccountingApp.Application.Services.AppServices.CompanyService;
+using CleanArchitectureAccountingApp.Application.Services.AppServices.RoleService;
 using CleanArchitectureAccountingApp.Application.Services.CompanyServices;
 using CleanArchitectureAccountingApp.Domain;
 using CleanArchitectureAccountingApp.Domain.Repositories.UniformChartOfAccountRepositories;
@@ -24,6 +25,7 @@ public class PersistenceDIServiceInstaller : IServiceInstaller
 
         serviceCollection.AddScoped<ICompanyService, CompanyService>();
         serviceCollection.AddScoped<IUniformChartOfAccountService, UniformChartOfAccountService>();
+        serviceCollection.AddScoped<IRoleService, RoleService>();
 
         #endregion
 

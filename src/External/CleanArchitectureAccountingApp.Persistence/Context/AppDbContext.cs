@@ -1,6 +1,7 @@
 ﻿using CleanArchitectureAccountingApp.Domain.Abstractions;
 using CleanArchitectureAccountingApp.Domain.AppEntities;
 using CleanArchitectureAccountingApp.Domain.AppEntities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -44,5 +45,14 @@ public sealed class AppDbContext: IdentityDbContext<AppUser, AppRole, Guid>
             }
         }
         return base.SaveChangesAsync(cancellationToken);
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Ignore<IdentityUserLogin<Guid>>();
+        builder.Ignore<IdentityUserRole<Guid>>();
+        builder.Ignore<IdentityUserClaim<Guid>>();
+        builder.Ignore<IdentityUserToken<Guid>>();
+        builder.Ignore<IdentityRoleClaim<Guid>>();
     }
 }

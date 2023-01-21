@@ -10,30 +10,29 @@ public class ExceptionMiddleware: IMiddleware
         {
             await next(context);
         }
-        catch (Exception exception)
+        catch (Exception ex)
         {
-            await HandleExceptionAsync(context, exception);
+            await HandleExceptionAsync(context, ex);				
         }
     }
 
-    private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)StatusCodes.Status500InternalServerError;
 
-        if (exception.GetType() == typeof(ValidationException))
+        if(ex.GetType() == typeof(ValidationException))
         {
-            await context.Response.WriteAsync(new ValidationErrorDetails
+            return context.Response.WriteAsync(new ValidationErrorDetails
             {
-                Errors = ((ValidationException)exception).Errors.Select(s => s.PropertyName),
+                Errors = ((ValidationException)ex).Errors.Select(s => s.PropertyName),
                 StatusCode = context.Response.StatusCode
-            }.ToString() ?? string.Empty);
-            return;
+            }.ToString());
         }
-        
-        await context.Response.WriteAsync(new ErrorResult
+
+        return context.Response.WriteAsync(new ErrorResult
         {
-            Message = exception.Message,
+            Message = ex.Message,
             StatusCode = context.Response.StatusCode
         }.ToString());
     }

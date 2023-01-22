@@ -35,4 +35,13 @@ public class RolesController : BaseApiController
         var result = await Mediator.Send(new DeleteRole.Command { Id = request.Id }, cancellationToken);
         return Ok(result);
     }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> CreateAllRoles()
+    {
+        var command = new CreateAllRoles.Command();
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
+
 }

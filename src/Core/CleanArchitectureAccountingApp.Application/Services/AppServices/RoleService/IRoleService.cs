@@ -6,6 +6,7 @@ namespace CleanArchitectureAccountingApp.Application.Services.AppServices.RoleSe
 public interface IRoleService
 {
     Task AddAsync(CreateRole.Command request);
+    Task AddRangeAsync(IEnumerable<AppRole> roles);
     Task UpdateAsync(UpdateRole.Command request);
     Task DeleteAsync(DeleteRole.Command request);
     Task<IReadOnlyList<AppRole?>> GetAllAsync();

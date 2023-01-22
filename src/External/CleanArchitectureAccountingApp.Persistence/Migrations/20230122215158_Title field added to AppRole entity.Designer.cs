@@ -3,6 +3,7 @@ using System;
 using CleanArchitectureAccountingApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CleanArchitectureAccountingApp.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230122215158_Title field added to AppRole entity")]
+    partial class TitlefieldaddedtoAppRoleentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,103 +180,6 @@ namespace CleanArchitectureAccountingApp.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.MainRole", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("CompanyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsRoleCreatedByAdmin")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("MainRoles");
-                });
-
-            modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.MainRoleAndRoleRelationship", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("MainRoleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MainRoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("MainRoleAndRoleRelationships");
-                });
-
-            modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.MainRoleAndUserRelationship", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("MainRoleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("MainRoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MainRoleAndUserRelationships");
-                });
-
             modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.UserAndCompanyRelationship", b =>
                 {
                     b.Property<Guid>("Id")
@@ -302,61 +208,6 @@ namespace CleanArchitectureAccountingApp.Persistence.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("UserAndCompanyRelationships");
-                });
-
-            modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.MainRole", b =>
-                {
-                    b.HasOne("CleanArchitectureAccountingApp.Domain.AppEntities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.MainRoleAndRoleRelationship", b =>
-                {
-                    b.HasOne("CleanArchitectureAccountingApp.Domain.AppEntities.MainRole", "MainRole")
-                        .WithMany()
-                        .HasForeignKey("MainRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CleanArchitectureAccountingApp.Domain.AppEntities.Identity.AppRole", "AppRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppRole");
-
-                    b.Navigation("MainRole");
-                });
-
-            modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.MainRoleAndUserRelationship", b =>
-                {
-                    b.HasOne("CleanArchitectureAccountingApp.Domain.AppEntities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CleanArchitectureAccountingApp.Domain.AppEntities.MainRole", "MainRole")
-                        .WithMany()
-                        .HasForeignKey("MainRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CleanArchitectureAccountingApp.Domain.AppEntities.Identity.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Company");
-
-                    b.Navigation("MainRole");
                 });
 
             modelBuilder.Entity("CleanArchitectureAccountingApp.Domain.AppEntities.UserAndCompanyRelationship", b =>

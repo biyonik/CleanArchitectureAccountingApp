@@ -11,8 +11,18 @@ namespace CleanArchitectureAccountingApp.Persistence.Context;
 /// <summary>
 /// Master Context
 /// </summary>
-public sealed class AppDbContext: IdentityDbContext<AppUser, AppRole, Guid>
+public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 {
+    #region DbSet Entities
+
+    public DbSet<Company> Companies { get; set; }
+    public DbSet<UserAndCompanyRelationship> UserAndCompanyRelationships { get; set; }
+    public DbSet<MainRole> MainRoles { get; set; }
+    public DbSet<MainRoleAndRoleRelationship> MainRoleAndRoleRelationships { get; set; }
+    public DbSet<MainRoleAndUserRelationship> MainRoleAndUserRelationships { get; set; }
+
+    #endregion
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -24,9 +34,6 @@ public sealed class AppDbContext: IdentityDbContext<AppUser, AppRole, Guid>
         optionsBuilder.UseNpgsql(configurationRoot.GetConnectionString("DefaultConnection"));
     }
 
-    public DbSet<Company> Companies { get; set; }
-    public DbSet<UserAndCompanyRelationship> UserAndCompanyRelationships { get; set; }
-
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         var entries = ChangeTracker.Entries<Entity>();
@@ -36,14 +43,17 @@ public sealed class AppDbContext: IdentityDbContext<AppUser, AppRole, Guid>
             {
                 entry.Property(p => p.Id).CurrentValue = Guid.NewGuid();
                 entry.Property(p => p.CreatedDate).CurrentValue = DateTime.Now;
-            }else if (entry.State == EntityState.Modified)
+            }
+            else if (entry.State == EntityState.Modified)
             {
                 entry.Property(p => p.UpdatedDate).CurrentValue = DateTime.Now;
-            }else if (entry.State == EntityState.Deleted)
+            }
+            else if (entry.State == EntityState.Deleted)
             {
                 entry.Property(p => p.RemovedDate).CurrentValue = DateTime.Now;
             }
         }
+
         return base.SaveChangesAsync(cancellationToken);
     }
 

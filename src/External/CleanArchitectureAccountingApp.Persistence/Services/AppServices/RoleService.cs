@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitectureAccountingApp.Persistence.Services.AppServices;
 
-public sealed class RoleService: IRoleService
+public sealed class RoleService : IRoleService
 {
     private readonly RoleManager<AppRole> _roleManager;
     private readonly IMapper _mapper;
+
     public RoleService(RoleManager<AppRole> roleManager, IMapper mapper)
     {
         _roleManager = roleManager;
@@ -22,7 +23,15 @@ public sealed class RoleService: IRoleService
         AppRole? role = _mapper.Map<AppRole>(request);
         await _roleManager.CreateAsync(role);
     }
-    
+
+    public async Task AddRangeAsync(IEnumerable<AppRole> roles)
+    {
+        foreach (var role in roles)
+        {
+            await _roleManager.CreateAsync(role);
+        }
+    }
+
     public async Task UpdateAsync(UpdateRole.Command request)
     {
         AppRole? role = _mapper.Map<AppRole>(request);

@@ -10,5 +10,6 @@
     &lt;TestId&gt;xUnit::736378AB-8F16-432E-842C-C478D62CDB67::net7.0::CleanArchitectureAccountingApp.UnitTest.Features.AppFeatures.RoleFeatures.Commands.UpdateRoleUnitTest.UpdateRoleCommandResponseShouldNotBeNull&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::736378AB-8F16-432E-842C-C478D62CDB67::net7.0::CleanArchitectureAccountingApp.UnitTest.Features.AppFeatures.RoleFeatures.Commands.DeleteRoleUnitTest.AppRoleShouldNotBeNull&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::736378AB-8F16-432E-842C-C478D62CDB67::net7.0::CleanArchitectureAccountingApp.UnitTest.Features.AppFeatures.RoleFeatures.Commands.DeleteRoleUnitTest.DeleteRoleCommandResponseShouldNotBeNull&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::736378AB-8F16-432E-842C-C478D62CDB67::net7.0::CleanArchitectureAccountingApp.UnitTest.Features.AppFeatures.RoleFeatures.Queries.GetAllRolesUnitTest.GetAllRolesShouldBeNotNull&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

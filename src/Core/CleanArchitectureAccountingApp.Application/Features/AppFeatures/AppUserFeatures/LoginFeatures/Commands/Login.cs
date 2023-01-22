@@ -5,7 +5,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitectureAccountingApp.Application.Features.AppFeatures.AppUserFeatures.Login;
+namespace CleanArchitectureAccountingApp.Application.Features.AppFeatures.AppUserFeatures.LoginFeatures.Commands;
 
 public sealed class Login
 {

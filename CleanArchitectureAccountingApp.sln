@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccounting
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccountingApp.WebAPI", "src\CleanArchitectureAccountingApp.WebAPI\CleanArchitectureAccountingApp.WebAPI.csproj", "{D491602D-2B0F-4CDF-822B-CCF35537BDDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureAccountingApp.UnitTest", "test\CleanArchitectureAccountingApp.UnitTest\CleanArchitectureAccountingApp.UnitTest.csproj", "{736378AB-8F16-432E-842C-C478D62CDB67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,7 @@ Global
 		{09D52678-7A08-42FC-AC3F-8DEE4AB607EB} = {38497B1A-3C03-4539-82FC-9B0871497DEE}
 		{DAA582C0-B45E-4A52-A0DB-3B1580CCDB71} = {38497B1A-3C03-4539-82FC-9B0871497DEE}
 		{D491602D-2B0F-4CDF-822B-CCF35537BDDE} = {49A2631A-6107-4465-81DA-2BF5280DC7A3}
+		{736378AB-8F16-432E-842C-C478D62CDB67} = {0B88AEF8-F58E-4BA3-8474-CC6EEC534FA6}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AF526BC8-F541-4987-A003-662CA7E6C721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -60,5 +63,9 @@ Global
 		{D491602D-2B0F-4CDF-822B-CCF35537BDDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D491602D-2B0F-4CDF-822B-CCF35537BDDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D491602D-2B0F-4CDF-822B-CCF35537BDDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736378AB-8F16-432E-842C-C478D62CDB67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736378AB-8F16-432E-842C-C478D62CDB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736378AB-8F16-432E-842C-C478D62CDB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736378AB-8F16-432E-842C-C478D62CDB67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -2,6 +2,7 @@
 using CleanArchitectureAccountingApp.Application.DTOs.CompaniesSubDTOs.UniformChartOfAccount;
 using CleanArchitectureAccountingApp.Application.Messaging;
 using CleanArchitectureAccountingApp.Application.Services.CompanyServices;
+using CleanArchitectureAccountingApp.Domain.CompanyEntities;
 using FluentValidation;
 
 namespace CleanArchitectureAccountingApp.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Command;
@@ -48,6 +49,9 @@ public class CreateUniformChartOfAccount
 
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
+            UniformChartOfAccount? uniformChartOfAccount = await _uniformChartOfAccountService.GetByCode(request.Code);
+            if (uniformChartOfAccount != null) throw new Exception("Bu hesap planı kodu daha önce tanımlanmış!");
+            
             var mappedEntity = _mapper.Map<UniformChartOfAccountForAddDto>(request);
             await _uniformChartOfAccountService.CreateUniformChartOfAccountAsync(mappedEntity, cancellationToken);
             return new();

@@ -11,17 +11,19 @@ namespace CleanArchitectureAccountingApp.Persistence.Services.CompanyServices;
 public sealed class UniformChartOfAccountService: IUniformChartOfAccountService
 {
     private readonly IUniformChartOfAccountCommandRepository _uniformChartOfAccountCommandRepository;
+    private readonly IUniformChartOfAccountQueryRepository _uniformChartOfAccountQueryRepository;
     private readonly IContextService _contextService;
     private CompanyDbContext _context;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     
-    public UniformChartOfAccountService(IUniformChartOfAccountCommandRepository uniformChartOfAccountCommandRepository, IContextService contextService, IUnitOfWork unitOfWork, IMapper mapper)
+    public UniformChartOfAccountService(IUniformChartOfAccountCommandRepository uniformChartOfAccountCommandRepository, IContextService contextService, IUnitOfWork unitOfWork, IMapper mapper, IUniformChartOfAccountQueryRepository uniformChartOfAccountQueryRepository)
     {
         _uniformChartOfAccountCommandRepository = uniformChartOfAccountCommandRepository;
         _contextService = contextService;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _uniformChartOfAccountQueryRepository = uniformChartOfAccountQueryRepository;
     }
 
     public async Task<bool> CreateUniformChartOfAccountAsync(UniformChartOfAccountForAddDto request, CancellationToken cancellationToken)
@@ -32,5 +34,10 @@ public sealed class UniformChartOfAccountService: IUniformChartOfAccountService
         var mappedEntity = _mapper.Map<UniformChartOfAccount>(request);
         await _uniformChartOfAccountCommandRepository.AddAsync(mappedEntity, cancellationToken);
         return await _unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+    }
+
+    public async Task<UniformChartOfAccount?> GetByCode(string code)
+    {
+        return await _uniformChartOfAccountQueryRepository.GetAsync(x => x.Code == code);
     }
 }
